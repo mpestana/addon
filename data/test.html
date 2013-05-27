@@ -1,0 +1,17 @@
+<HTML>
+<HEAD>
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<script src="http://EasyWebsocket.org/easyWebSocket.min.js"></script>   
+<script>
+    var socket = new EasyWebSocket("ws://example.com/resource");
+    socket.onopen   = function(){
+        socket.send("hello world.")
+    }
+    socket.onmessage= function(event){
+        alert("received"+ event.data)
+    }
+</script>
+</BODY>
+</HTML>
