@@ -37,25 +37,6 @@ self.port.on("init", function init(flag) {
 	};
 	var text=document.createTextNode("Favs");
 	favBtn.appendChild(text);
-	
-//	/*** Test Button ***/
-//	var testBtn = document.createElement('button');
-//	testBtn.type = "button";
-//	testBtn.name = "test";
-//	testBtn.value = "test";
-//	testBtn.onclick = function() {
-//		$().toastmessage('showToast', {
-//			text     : 'Notice Dialog which is sticky',
-//			sticky   : true,
-//			position : 'top-right',
-//			type     : 'notice',
-//			closeText: '',
-//			close    : function () {console.log("toast is closed ...");}
-//		});
-//	};
-//	var text=document.createTextNode("Server");
-//	testBtn.appendChild(text);
-//	/*** End of Test Button ***/
 
 	/*** Maps Button ***/
 	var MapsBtn = document.createElement('button');
@@ -73,7 +54,6 @@ self.port.on("init", function init(flag) {
 		status.innerHTML = "You have already visited this page!!!";
 		status.appendChild(checkbox);
 		status.appendChild(favBtn);
-		//status.appendChild(testBtn);
 		status.appendChild(MapsBtn);
 		second_div.appendChild(status);
 		first_div.appendChild(second_div);
@@ -83,7 +63,6 @@ self.port.on("init", function init(flag) {
 		status.innerHTML = "First time here!!!";
 		status.appendChild(checkbox);
 		status.appendChild(favBtn);
-		//status.appendChild(testBtn);
 		status.appendChild(MapsBtn);
 		second_div.appendChild(status); 
 		first_div.appendChild(second_div);
