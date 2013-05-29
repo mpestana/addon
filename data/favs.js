@@ -1,18 +1,12 @@
 self.port.on("disp", function(links) {
+	const USERID = 'maria';
+
 	var first_div = document.createElement("div");
 	first_div.setAttribute("id", "first_div");
 	first_div.className = "first_div";
 	var list = document.createElement("ul");
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-	first_div.innerHTML = "<h3><b>List of Favourite Websites:<br /> <br /></h3>";
-=======
 	first_div.innerHTML = "<h3><b>List of Favourite Websites:</b><br /> <br /></h3>";
->>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
-=======
-	first_div.innerHTML = "<h3><b>List of Favourite Websites:</b><br /> <br /></h3>";
->>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
 	
 	for (var url in links){
 		
@@ -22,15 +16,6 @@ self.port.on("disp", function(links) {
 			item += " "+links[url][save].userid+",";
 		}
 		item = item.replace(/,+$/, " "); 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-		var itemList = document.createElement('li');
-		itemList.innerHTML = item;
-		list.appendChild(itemList);
-=======
-=======
->>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
 		
 		var itemList = document.createElement('li');
 		var listText = document.createElement('p');
@@ -43,15 +28,15 @@ self.port.on("disp", function(links) {
 		delBtn.name = "del";
 		delBtn.value = "del";
 		delBtn.onclick = function() {
-			console.log("Deletar");
+//			self.port.emit("del", url);
+			console.log(url); //ERROR IN THE URL HERE!
 		}
 		var delText=document.createTextNode("Delete");
+
 		delBtn.appendChild(delText);
+		if (links[url][save].userid == USERID){
 		itemList.appendChild(delBtn);		
-<<<<<<< HEAD
->>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
-=======
->>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
+		}
 
 		//Like button
 		var Like = document.createElement('input');
@@ -61,15 +46,7 @@ self.port.on("disp", function(links) {
 		Like.value = "like";
 		Like.onclick = function() {
 			//action
-<<<<<<< HEAD
-<<<<<<< HEAD
-			//console.log("Gostou");
-=======
 			console.log("Gostou");
->>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
-=======
-			console.log("Gostou");
->>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
 		};
 		var likeText =document.createTextNode("Like");
 		Like.appendChild(likeText);
@@ -111,17 +88,8 @@ self.port.on("disp", function(links) {
 		var likeDislikeTable = document.createElement('table');
 		likeDislikeTable.appendChild(likeDislikeTr);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-		list.appendChild(likeDislikeTable);
-=======
 		itemList.appendChild(likeDislikeTable);
 		list.appendChild(itemList);
->>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
-=======
-		itemList.appendChild(likeDislikeTable);
-		list.appendChild(itemList);
->>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
 	}
 	document.body.appendChild(first_div);
 	document.body.appendChild(list);
