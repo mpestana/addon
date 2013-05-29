@@ -4,7 +4,7 @@ self.port.on("disp", function(links) {
 	first_div.className = "first_div";
 	var list = document.createElement("ul");
 	
-	first_div.innerHTML = "<h3><b>List of Favourite Websites:<br /> <br /></h3>";
+	first_div.innerHTML = "<h3><b>List of Favourite Websites:</b><br /> <br /></h3>";
 	
 	for (var url in links){
 		
@@ -14,10 +14,23 @@ self.port.on("disp", function(links) {
 			item += " "+links[url][save].userid+",";
 		}
 		item = item.replace(/,+$/, " "); 
-
+		
 		var itemList = document.createElement('li');
-		itemList.innerHTML = item;
-		list.appendChild(itemList);
+		var listText = document.createElement('p');
+		listText.innerHTML = item;
+		itemList.appendChild(listText);
+
+		//Delete button
+		var delBtn = document.createElement('button');
+		delBtn.type = "button";
+		delBtn.name = "del";
+		delBtn.value = "del";
+		delBtn.onclick = function() {
+			console.log("Deletar");
+		}
+		var delText=document.createTextNode("Delete");
+		delBtn.appendChild(delText);
+		itemList.appendChild(delBtn);		
 
 		//Like button
 		var Like = document.createElement('input');
@@ -69,7 +82,8 @@ self.port.on("disp", function(links) {
 		var likeDislikeTable = document.createElement('table');
 		likeDislikeTable.appendChild(likeDislikeTr);
 
-		list.appendChild(likeDislikeTable);
+		itemList.appendChild(likeDislikeTable);
+		list.appendChild(itemList);
 	}
 	document.body.appendChild(first_div);
 	document.body.appendChild(list);
