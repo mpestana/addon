@@ -5,7 +5,11 @@ self.port.on("disp", function(links) {
 	var list = document.createElement("ul");
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	first_div.innerHTML = "<h3><b>List of Favourite Websites:<br /> <br /></h3>";
+=======
+	first_div.innerHTML = "<h3><b>List of Favourite Websites:</b><br /> <br /></h3>";
+>>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
 =======
 	first_div.innerHTML = "<h3><b>List of Favourite Websites:</b><br /> <br /></h3>";
 >>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
@@ -19,11 +23,14 @@ self.port.on("disp", function(links) {
 		}
 		item = item.replace(/,+$/, " "); 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 		var itemList = document.createElement('li');
 		itemList.innerHTML = item;
 		list.appendChild(itemList);
 =======
+=======
+>>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
 		
 		var itemList = document.createElement('li');
 		var listText = document.createElement('p');
@@ -41,6 +48,9 @@ self.port.on("disp", function(links) {
 		var delText=document.createTextNode("Delete");
 		delBtn.appendChild(delText);
 		itemList.appendChild(delBtn);		
+<<<<<<< HEAD
+>>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
+=======
 >>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
 
 		//Like button
@@ -52,7 +62,11 @@ self.port.on("disp", function(links) {
 		Like.onclick = function() {
 			//action
 <<<<<<< HEAD
+<<<<<<< HEAD
 			//console.log("Gostou");
+=======
+			console.log("Gostou");
+>>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
 =======
 			console.log("Gostou");
 >>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
@@ -98,7 +112,12 @@ self.port.on("disp", function(links) {
 		likeDislikeTable.appendChild(likeDislikeTr);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		list.appendChild(likeDislikeTable);
+=======
+		itemList.appendChild(likeDislikeTable);
+		list.appendChild(itemList);
+>>>>>>> cde18a174e393f26ac368d772e4c4267626e42b8
 =======
 		itemList.appendChild(likeDislikeTable);
 		list.appendChild(itemList);
