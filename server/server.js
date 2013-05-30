@@ -141,7 +141,7 @@ function set_vote(data){
     }
 
     if (set_flag){
-        return {'type':'set_vote', 'msg': data.userid+' voted ('+data.vote+') for <a href="'+data.url+'">'+data.title+'</a> from the favourites list.' , 'target': 'BROADCAST', 'orig_msg':data}; 
+        return {'type':'vote_set', 'msg': data.userid+' voted ('+data.vote+') for <a href="'+data.url+'">'+data.title+'</a> from the favourites list.' , 'target': 'BROADCAST', 'orig_msg':data}; 
     }
     else{
         return {'type':'error', 'msg':'cannot vote for the given url','target':data.userid,'orig_msg':obj}; 
@@ -160,7 +160,7 @@ function get_votes(data){
     }
 
     if (votes != null){
-        return {'type':'set_vote', 'data': votes , 'target': 'BROADCAST', 'orig_msg':data}; 
+        return {'type':'all_votes', 'data': votes , 'target': data.userid, 'orig_msg':data}; 
     }
     else{
         return {'type':'error', 'msg':'cannot find votes for the given url','target':data.userid,'orig_msg':obj}; 
