@@ -44,7 +44,11 @@ self.port.on("init", function init(flag) {
 	MapsBtn.name = "maps";
 	MapsBtn.value = "maps";
 	MapsBtn.onclick = function() {
-		self.port.emit("maps", 1);
+
+
+		$().toastmessage('showNoticeToast', 'some message here');
+
+		//self.port.emit("maps", 1);
 	};
 	var text=document.createTextNode("Map");
 	MapsBtn.appendChild(text);
