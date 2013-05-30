@@ -1,5 +1,4 @@
-self.port.on("disp", function(links) {
-	const USERID = 'maria';
+self.port.on("disp", function(links, userId) {
 
 	var first_div = document.createElement("div");
 	first_div.setAttribute("id", "first_div");
@@ -8,12 +7,19 @@ self.port.on("disp", function(links) {
 	
 	first_div.innerHTML = "<h3><b>List of Favourite Websites:</b><br /> <br /></h3>";
 	
+	var Flag = 0;
+	
 	for (var url in links){
 		
 		var item = "<a href='"+url+"'>"+links[url][0].title+"</a> saved by ";
 
+		Flag = 0;
+		
 		for (var save in links[url]){
 			item += " "+links[url][save].userid+",";
+			if(links[url][save].userid == userId){
+				Flag = 1;
+			}
 		}
 		item = item.replace(/,+$/, " "); 
 		
@@ -25,17 +31,17 @@ self.port.on("disp", function(links) {
 		//Delete button
 		var delBtn = document.createElement('button');
 		delBtn.type = "button";
-		delBtn.name = "del";
-		delBtn.value = "del";
+		delBtn.name = userId + "_" + url;
+		delBtn.value = url;
 		delBtn.onclick = function() {
-//			self.port.emit("del", url);
-			console.log(url); //ERROR IN THE URL HERE!
+			self.port.emit("delFav", this.value);
+			window.alert(this.value);
 		}
-		var delText=document.createTextNode("Delete");
+		var delText=document.createTextNode("Deletando");
 
 		delBtn.appendChild(delText);
-		if (links[url][save].userid == USERID){
-		itemList.appendChild(delBtn);		
+		if (Flag == 1){
+			itemList.appendChild(delBtn);		
 		}
 
 		//Like button
