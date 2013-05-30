@@ -35,7 +35,7 @@ self.port.on("disp", function(links, userId) {
 		delBtn.value = url;
 		delBtn.onclick = function() {
 			self.port.emit("del", this.value);
-			window.alert(this.value);
+			//window.alert(this.value);
 		}
 		var delText=document.createTextNode("Deletando");
 
@@ -49,10 +49,10 @@ self.port.on("disp", function(links, userId) {
 		Like.type = "image";
 		Like.name = "like";
 		Like.src = "up.png";
-		Like.value = "like";
+		Like.value = url;
 		Like.onclick = function() {
 			//action
-			console.log("Gostou");
+			self.port.emit("like", this.value);
 		};
 		var likeText =document.createTextNode("Like");
 		Like.appendChild(likeText);
@@ -64,11 +64,11 @@ self.port.on("disp", function(links, userId) {
 		var disLike = document.createElement('input');
 		disLike.type = "image";
 		disLike.name = "dislike";
-		disLike.value = "dislike";
+		disLike.value = url;
 		disLike.src = "down.png";
 		disLike.onclick = function() {
 			//action
-			console.log("desgostou");
+			self.port.emit("dislike", this.value);
 		};
 		var disLikeText =document.createTextNode("Dislike");
 		disLike.appendChild(disLikeText); 
