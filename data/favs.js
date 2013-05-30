@@ -37,7 +37,7 @@ self.port.on("disp", function(links, userId) {
 			self.port.emit("del", this.value);
 			window.alert(this.value);
 		}
-		var delText=document.createTextNode("Deletando");
+		var delText=document.createTextNode("Delete");
 
 		delBtn.appendChild(delText);
 		if (Flag == 1){
@@ -95,8 +95,18 @@ self.port.on("disp", function(links, userId) {
 		likeDislikeTable.appendChild(likeDislikeTr);
 
 		itemList.appendChild(likeDislikeTable);
-		list.appendChild(itemList);
+		var item_div = document.createElement("div");
+		item_div.setAttribute("id", url);
+		item_div.className = url;
+		item_div.appendChild(itemList);		
+		
+		list.appendChild(item_div);
+
 	}
 	document.body.appendChild(first_div);
-	document.body.appendChild(list);
+	var list_div = document.createElement("div");
+	list_div.setAttribute("id", "list_div");
+	list_div.className = "list_div";
+	list_div.appendChild(list);
+	document.body.appendChild(list_div);
 });
