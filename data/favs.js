@@ -16,8 +16,12 @@ self.port.on("disp", function(links, userId) {
 	for (var url in links){
 		
 		var item = "<a href='"+url+"'>"+links[url][0].title+"</a> saved by ";
-
+		var Likes = 0;
+		var Dislikes = 0;
+		
 		Flag = 0;
+		
+		
 		
 		for (var save in links[url]){
 			item += " "+links[url][save].userid+",";
@@ -25,6 +29,17 @@ self.port.on("disp", function(links, userId) {
 				Flag = 1;
 			}
 		}
+		
+		for (var vote in links[url][0].votes){
+			if(links[url][0].votes[vote] == 1){
+				Likes += 1;
+			}
+			else{
+				Dislikes += 1;
+			}
+		}
+		
+		
 		item = item.replace(/,+$/, " "); 
 		
 		var itemList = document.createElement('li');
@@ -53,7 +68,7 @@ self.port.on("disp", function(links, userId) {
 		Like.type = "image";
 		Like.name = "like";
 		Like.src = "up.png";
-		Like.value = "like";
+		Like.value = url;
 		Like.onclick = function() {
 			//action
 			self.port.emit("like", this.value);
@@ -62,13 +77,13 @@ self.port.on("disp", function(links, userId) {
 		Like.appendChild(likeText);
 
 		//Number of likes
-		var likes = "<p>" + "10" + "</p>";
+		var likes = "<p>" + Likes + "</p>";
 
 		//Dislike button
 		var disLike = document.createElement('input');
 		disLike.type = "image";
 		disLike.name = "dislike";
-		disLike.value = "dislike";
+		disLike.value = url;
 		disLike.src = "down.png";
 		disLike.onclick = function() {
 			//action
@@ -78,7 +93,7 @@ self.port.on("disp", function(links, userId) {
 		disLike.appendChild(disLikeText); 
 		
 		//Number of dislikes
-		var disLikes = "<p>" + "15" + "</p>";
+		var disLikes = "<p>" + Dislikes + "</p>";
 
 		var likeBtnTd = document.createElement('td');
 		likeBtnTd.appendChild(Like);
