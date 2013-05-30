@@ -1,5 +1,9 @@
 self.port.on("disp", function(links, userId) {
-
+	
+	self.port.on("delReturn", function delReturn(delUrl) {
+		$(document.getElementById(delUrl)).remove();
+	});
+	
 	var first_div = document.createElement("div");
 	first_div.setAttribute("id", "first_div");
 	first_div.className = "first_div";
@@ -8,7 +12,7 @@ self.port.on("disp", function(links, userId) {
 	first_div.innerHTML = "<h3><b>List of Favourite Websites:</b><br /> <br /></h3>";
 	
 	var Flag = 0;
-	
+
 	for (var url in links){
 		
 		var item = "<a href='"+url+"'>"+links[url][0].title+"</a> saved by ";
@@ -35,11 +39,11 @@ self.port.on("disp", function(links, userId) {
 		delBtn.value = url;
 		delBtn.onclick = function() {
 			self.port.emit("del", this.value);
-			//window.alert(this.value);
 		}
+		
 		var delText=document.createTextNode("Delete");
-
 		delBtn.appendChild(delText);
+		
 		if (Flag == 1){
 			itemList.appendChild(delBtn);		
 		}
@@ -49,7 +53,7 @@ self.port.on("disp", function(links, userId) {
 		Like.type = "image";
 		Like.name = "like";
 		Like.src = "up.png";
-		Like.value = url;
+		Like.value = "like";
 		Like.onclick = function() {
 			//action
 			self.port.emit("like", this.value);
@@ -64,7 +68,7 @@ self.port.on("disp", function(links, userId) {
 		var disLike = document.createElement('input');
 		disLike.type = "image";
 		disLike.name = "dislike";
-		disLike.value = url;
+		disLike.value = "dislike";
 		disLike.src = "down.png";
 		disLike.onclick = function() {
 			//action
@@ -95,13 +99,13 @@ self.port.on("disp", function(links, userId) {
 		likeDislikeTable.appendChild(likeDislikeTr);
 
 		itemList.appendChild(likeDislikeTable);
+		
 		var item_div = document.createElement("div");
 		item_div.setAttribute("id", url);
 		item_div.className = url;
 		item_div.appendChild(itemList);		
 		
 		list.appendChild(item_div);
-
 	}
 	document.body.appendChild(first_div);
 	var list_div = document.createElement("div");
