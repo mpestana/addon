@@ -76,6 +76,11 @@ self.port.on("disp", function(links, userId) {
 		var likeText =document.createTextNode("Like");
 		Like.appendChild(likeText);
 
+		self.port.on("likeReturn", function likeReturn(ReturUrl) {
+			Likes += 1;
+			
+		});
+		
 		//Number of likes
 		var likes = "<p>" + Likes + "</p>";
 
@@ -91,6 +96,11 @@ self.port.on("disp", function(links, userId) {
 		};
 		var disLikeText =document.createTextNode("Dislike");
 		disLike.appendChild(disLikeText); 
+		
+		self.port.on("dislikeReturn", function dislikeReturn(ReturUrl) {
+			Dislikes += 1;
+
+		});
 		
 		//Number of dislikes
 		var disLikes = "<p>" + Dislikes + "</p>";
@@ -129,3 +139,4 @@ self.port.on("disp", function(links, userId) {
 	list_div.appendChild(list);
 	document.body.appendChild(list_div);
 });
+
