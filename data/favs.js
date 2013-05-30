@@ -34,7 +34,7 @@ self.port.on("disp", function(links, userId) {
 		delBtn.name = userId + "_" + url;
 		delBtn.value = url;
 		delBtn.onclick = function() {
-			self.port.emit("delFav", this.value);
+			self.port.emit("del", this.value);
 			window.alert(this.value);
 		}
 		var delText=document.createTextNode("Deletando");
