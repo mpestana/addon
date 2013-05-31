@@ -49,6 +49,7 @@ self.port.on("disp", function(links, userId) {
 
 		//Delete button
 		var delBtn = document.createElement('button');
+		delBtn.setAttribute("id", userId + "_" + url);
 		delBtn.type = "button";
 		delBtn.name = userId + "_" + url;
 		delBtn.value = url;
@@ -71,7 +72,10 @@ self.port.on("disp", function(links, userId) {
 		Like.value = url;
 		Like.onclick = function() {
 			//action
-			self.port.emit("like", this.value);
+			Likes += 1;
+			alert.window(Likes);
+		//	self.port.emit("like", this.value);
+			
 		};
 		var likeText =document.createTextNode("Like");
 		Like.appendChild(likeText);
@@ -92,7 +96,7 @@ self.port.on("disp", function(links, userId) {
 		disLike.src = "down.png";
 		disLike.onclick = function() {
 			//action
-			self.port.emit("dislike", this.value);
+			//self.port.emit("dislike", this.value);
 		};
 		var disLikeText =document.createTextNode("Dislike");
 		disLike.appendChild(disLikeText); 
@@ -126,7 +130,7 @@ self.port.on("disp", function(links, userId) {
 		itemList.appendChild(likeDislikeTable);
 		
 		var item_div = document.createElement("div");
-		item_div.setAttribute("id", url);
+		item_div.setAttribute("id", userId + "_" + url);
 		item_div.className = url;
 		item_div.appendChild(itemList);		
 		

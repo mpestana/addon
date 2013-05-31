@@ -39,26 +39,22 @@ self.port.on("init", function init(flag) {
 	favBtn.appendChild(text);
 
 	/*** Maps Button ***/
-	var MapsBtn = document.createElement('button');
-	MapsBtn.type = "button";
-	MapsBtn.name = "maps";
-	MapsBtn.value = "maps";
-	MapsBtn.onclick = function() {
-
-
-		$().toastmessage('showNoticeToast', 'some message here');
-
-		//self.port.emit("maps", 1);
-	};
-	var text=document.createTextNode("Map");
-	MapsBtn.appendChild(text);
+	//var MapsBtn = document.createElement('button');
+	//MapsBtn.type = "button";
+	//MapsBtn.name = "maps";
+	//MapsBtn.value = "maps";
+	//MapsBtn.onclick = function() {
+	//	self.port.emit("maps", 1);
+	//};
+	//var text=document.createTextNode("Map");
+	//MapsBtn.appendChild(text);
 	/*** End of Maps Button ***/
 
 	if(flag==1){
 		status.innerHTML = "You have already visited this page!!!";
 		status.appendChild(checkbox);
 		status.appendChild(favBtn);
-		status.appendChild(MapsBtn);
+		//status.appendChild(MapsBtn);
 		second_div.appendChild(status);
 		first_div.appendChild(second_div);
 		document.body.appendChild(first_div);
@@ -67,7 +63,7 @@ self.port.on("init", function init(flag) {
 		status.innerHTML = "First time here!!!";
 		status.appendChild(checkbox);
 		status.appendChild(favBtn);
-		status.appendChild(MapsBtn);
+		//status.appendChild(MapsBtn);
 		second_div.appendChild(status); 
 		first_div.appendChild(second_div);
 		document.body.appendChild(first_div); 
