@@ -101,6 +101,9 @@ function messageRouter(data){
         case 'get_votes':
             return get_votes(data);
             break;
+        case 'get_db':
+            return get_db(data);
+            break;
         //the client wants to get all visits
         /*case 'get_all_visits':
             return get_all_visits(data);
@@ -183,6 +186,11 @@ function get_all_favs(data){
     console.log(JSON.stringify(msg));
 
     return msg; 
+}
+
+//return the entire DB
+function get_db(data){
+    return msg = {'type': 'DB', 'data':DB, 'orig_msg': data, 'target': data.userid}; 
 }
 
 //add a visit for this client
