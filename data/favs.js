@@ -90,6 +90,7 @@ self.port.on("disp", function(links, userId) {
 
 		//Like button
 		var Like = document.createElement('input');
+		Like.setAttribute("id", "Like_" + url);
 		Like.type = "image";
 		Like.name = "like";
 		Like.value = url;
@@ -97,12 +98,14 @@ self.port.on("disp", function(links, userId) {
 			Like.src = "liked.jpeg";
 		}
 		else{
-		Like.src = "up.png";
+			Like.src = "up.png";
 			Like.onclick = function() {
-				//action
+				this.src = "liked.jpeg";
+				$(document.getElementById("disLike_" + this.value)).attr('src', 'down.png');
 				self.port.emit("like", this.value);
 			};
 		}
+		
 		var likeText =document.createTextNode("Like");
 		Like.appendChild(likeText);
 
@@ -116,6 +119,7 @@ self.port.on("disp", function(links, userId) {
 
 		//Dislike button
 		var disLike = document.createElement('input');
+		disLike.setAttribute("id", "disLike_" + url);
 		disLike.type = "image";
 		disLike.name = "dislike";
 		disLike.value = url;
@@ -125,7 +129,8 @@ self.port.on("disp", function(links, userId) {
 		else{
 			disLike.src = "down.png";
 			disLike.onclick = function() {
-				//action
+				this.src = "disliked.jpeg";
+				$(document.getElementById("Like_" + this.value)).attr('src', 'up.png');
 				self.port.emit("dislike", this.value);
 			};
 		}
