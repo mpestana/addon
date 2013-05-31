@@ -35,9 +35,12 @@ self.port.on("disp", function(links, userId) {
 			if(links[url][save].userid == userId){
 				Flag = 1;
 			}
-			if(links[url][save].votes[vote]==1 && links[url][save].userid == userId){ 
+			if(links[url][save].votes[userId]==1){ 
 				like_flag = 1; 
 				}
+			else if(links[url][save].votes[userId]==(-1)){ 
+				dislike_flag = 1; 
+			}
 		}
 		
 		for (var vote in links[url][0].votes){
@@ -79,14 +82,7 @@ self.port.on("disp", function(links, userId) {
 		Like.type = "image";
 		Like.name = "like";
 		Like.value = url;
-		Like.onclick = function() {
-			//action
-			Likes += 1;
-			alert.window(Likes);
-		//	self.port.emit("like", this.value);
-			
-		};
-		if(like_flag == 1){  		/*** Testing Like/Deslike Button ****/
+		if(like_flag == 1){  		
 			Like.src = "liked.jpeg";
 		}
 		else{
@@ -112,11 +108,17 @@ self.port.on("disp", function(links, userId) {
 		disLike.type = "image";
 		disLike.name = "dislike";
 		disLike.value = url;
-		disLike.src = "down.png";
-		disLike.onclick = function() {
-			//action
-			//self.port.emit("dislike", this.value);
-		};
+		if(dislike_flag == 1){  		/*** Testing Like/Deslike Button ****/
+			disLike.src = "disliked.jpeg";
+		}
+		else{
+			disLike.src = "down.png";
+			disLike.onclick = function() {
+				//action
+				self.port.emit("dislike", this.value);
+			};
+		}
+		
 		var disLikeText =document.createTextNode("Dislike");
 		disLike.appendChild(disLikeText); 
 		

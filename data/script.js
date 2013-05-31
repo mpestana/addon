@@ -38,6 +38,7 @@ self.port.on("init", function init(flag) {
 	var text=document.createTextNode("Favs");
 	favBtn.appendChild(text);
 
+	/*** DB Button ***/
 	var dbBtn = document.createElement('button');
 	dbBtn.type = "button";
 	dbBtn.name = "favs";
@@ -47,8 +48,6 @@ self.port.on("init", function init(flag) {
 	};
 	var text=document.createTextNode("DB");
 	dbBtn.appendChild(text);
-
-
 
 	/*** Maps Button ***/
 	var MapsBtn = document.createElement('button');
