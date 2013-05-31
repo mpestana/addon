@@ -1,7 +1,18 @@
 self.port.on("disp", function(links, userId) {
 	
 	self.port.on("delReturn", function delReturn(delUrl) {
-		$(document.getElementById(delUrl)).remove();
+		var test = 0;
+		for (var save in links[delUrl]){
+			if(links[delUrl][save].userid != userId){
+				test = 1;
+			}
+		}	
+		if(test ==0){
+			$(document.getElementById(delUrl)).remove();
+		}
+		else{
+			$(document.getElementById(userId + "_" + delUrl)).remove();
+		}
 	});
 	
 	var first_div = document.createElement("div");
@@ -151,7 +162,7 @@ self.port.on("disp", function(links, userId) {
 		itemList.appendChild(likeDislikeTable);
 		
 		var item_div = document.createElement("div");
-		item_div.setAttribute("id", userId + "_" + url);
+		item_div.setAttribute("id", url);
 		item_div.className = url;
 		item_div.appendChild(itemList);		
 		
