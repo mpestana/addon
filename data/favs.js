@@ -12,6 +12,10 @@ self.port.on("disp", function(links, userId) {
 	first_div.innerHTML = "<h3><b>List of Favourite Websites:</b><br /> <br /></h3>";
 	
 	var Flag = 0;
+	
+	/*** Testing Like/Deslike Button ****/
+	var like_flag = 0;
+	var dislike_flag = 0;
 
 	for (var url in links){
 		
@@ -21,6 +25,9 @@ self.port.on("disp", function(links, userId) {
 		
 		Flag = 0;
 		
+		/*** Testing Like/Deslike Button ****/
+		like_flag = 0;
+		dislike_flag = 0;
 		
 		
 		for (var save in links[url]){
@@ -28,6 +35,9 @@ self.port.on("disp", function(links, userId) {
 			if(links[url][save].userid == userId){
 				Flag = 1;
 			}
+			if(links[url][save].votes[vote]==1 && links[url][save].userid == userId){ 
+				like_flag = 1; 
+				}
 		}
 		
 		for (var vote in links[url][0].votes){
@@ -68,7 +78,6 @@ self.port.on("disp", function(links, userId) {
 		var Like = document.createElement('input');
 		Like.type = "image";
 		Like.name = "like";
-		Like.src = "up.png";
 		Like.value = url;
 		Like.onclick = function() {
 			//action
@@ -77,6 +86,16 @@ self.port.on("disp", function(links, userId) {
 		//	self.port.emit("like", this.value);
 			
 		};
+		if(like_flag == 1){  		/*** Testing Like/Deslike Button ****/
+			Like.src = "liked.jpeg";
+		}
+		else{
+		Like.src = "up.png";
+			Like.onclick = function() {
+				//action
+				self.port.emit("like", this.value);
+			};
+		}
 		var likeText =document.createTextNode("Like");
 		Like.appendChild(likeText);
 
