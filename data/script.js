@@ -38,6 +38,18 @@ self.port.on("init", function init(flag) {
 	var text=document.createTextNode("Favs");
 	favBtn.appendChild(text);
 
+	var dbBtn = document.createElement('button');
+	dbBtn.type = "button";
+	dbBtn.name = "favs";
+	dbBtn.value = "favs";
+	dbBtn.onclick = function() {
+		self.port.emit("get_db");
+	};
+	var text=document.createTextNode("DB");
+	dbBtn.appendChild(text);
+
+
+
 	/*** Maps Button ***/
 	var MapsBtn = document.createElement('button');
 	MapsBtn.type = "button";
@@ -59,17 +71,21 @@ self.port.on("init", function init(flag) {
 		status.appendChild(checkbox);
 		status.appendChild(favBtn);
 		status.appendChild(MapsBtn);
+		status.appendChild(dbBtn);
 		second_div.appendChild(status);
 		first_div.appendChild(second_div);
 		document.body.appendChild(first_div);
 	}
-	if(flag==0){
+	else if(flag==0){
 		status.innerHTML = "First time here!!!";
 		status.appendChild(checkbox);
 		status.appendChild(favBtn);
 		status.appendChild(MapsBtn);
+		status.appendChild(dbBtn);
 		second_div.appendChild(status); 
 		first_div.appendChild(second_div);
 		document.body.appendChild(first_div); 
 	}
 });
+
+
