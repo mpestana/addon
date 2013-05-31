@@ -96,15 +96,17 @@ self.port.on("disp", function(links, userId) {
 		Like.value = url;
 		if(like_flag == 1){  		
 			Like.src = "liked.jpeg";
+			like_flag = 0;
 		}
 		else{
 			Like.src = "up.png";
-			Like.onclick = function() {
-				this.src = "liked.jpeg";
-				$(document.getElementById("disLike_" + this.value)).attr('src', 'down.png');
-				self.port.emit("like", this.value);
-			};
 		}
+		
+		Like.onclick = function() {
+			this.src = "liked.jpeg";
+			$(document.getElementById("disLike_" + this.value)).attr('src', 'down.png');
+			self.port.emit("like", this.value);
+		};
 		
 		var likeText =document.createTextNode("Like");
 		Like.appendChild(likeText);
@@ -125,15 +127,17 @@ self.port.on("disp", function(links, userId) {
 		disLike.value = url;
 		if(dislike_flag == 1){  		/*** Testing Like/Deslike Button ****/
 			disLike.src = "disliked.jpeg";
+			dislike_flag = 0;
 		}
 		else{
 			disLike.src = "down.png";
-			disLike.onclick = function() {
-				this.src = "disliked.jpeg";
-				$(document.getElementById("Like_" + this.value)).attr('src', 'up.png');
-				self.port.emit("dislike", this.value);
-			};
 		}
+		
+		disLike.onclick = function() {
+			this.src = "disliked.jpeg";
+			$(document.getElementById("Like_" + this.value)).attr('src', 'up.png');
+			self.port.emit("dislike", this.value);
+		};
 		
 		var disLikeText =document.createTextNode("Dislike");
 		disLike.appendChild(disLikeText); 
