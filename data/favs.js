@@ -15,6 +15,21 @@ self.port.on("disp", function(links, userId) {
 		}
 	});
 	
+	self.port.on("dislikeReturn", function (ReturUrl, likeN, dislikeN) {
+		var likes_tmp = "<p>" + likeN + "</p>";
+		var dislikes_tmp = "<p>" + dislikeN + "</p>";
+		$(document.getElementById("dislikeNumberTd_" + ReturUrl)).attr('innerHTML', dislikes_tmp);
+		$(document.getElementById("likeNumberTd_" + ReturUrl)).attr('innerHTML', likes_tmp);
+	});
+	
+	self.port.on("likeReturn", function (ReturUrl, likeN, dislikeN) {
+		var likes_tmp = "<p>" + likeN + "</p>";
+		var dislikes_tmp = "<p>" + dislikeN + "</p>";
+		$(document.getElementById("dislikeNumberTd_" + ReturUrl)).attr('innerHTML', dislikes_tmp);
+		$(document.getElementById("likeNumberTd_" + ReturUrl)).attr('innerHTML', likes_tmp);
+	});	
+	
+	
 	var first_div = document.createElement("div");
 	first_div.setAttribute("id", "first_div");
 	first_div.className = "first_div";
@@ -105,19 +120,12 @@ self.port.on("disp", function(links, userId) {
 		Like.onclick = function() {
 			this.src = "liked.jpeg";
 			$(document.getElementById("disLike_" + this.value)).attr('src', 'down.png');
-			self.port.emit("like", this.value);
+			self.port.emit("like", this.value, Likes, Dislikes);
 		};
 		
 		var likeText =document.createTextNode("Like");
 		Like.appendChild(likeText);
-
-		self.port.on("likeReturn", function likeReturn(ReturUrl) {
-			Likes += 1;
-			
-		});
 		
-		//Number of likes
-		var likes = "<p>" + Likes + "</p>";
 
 		//Dislike button
 		var disLike = document.createElement('input');
@@ -136,27 +144,26 @@ self.port.on("disp", function(links, userId) {
 		disLike.onclick = function() {
 			this.src = "disliked.jpeg";
 			$(document.getElementById("Like_" + this.value)).attr('src', 'up.png');
-			self.port.emit("dislike", this.value);
+			self.port.emit("dislike", this.value, Likes, Dislikes);
 		};
 		
 		var disLikeText =document.createTextNode("Dislike");
 		disLike.appendChild(disLikeText); 
-		
-		self.port.on("dislikeReturn", function dislikeReturn(ReturUrl) {
-			Dislikes += 1;
-
-		});
-		
+	
+		//Number of likes
+		var likes = "<p>" + Likes + "</p>";		
 		//Number of dislikes
 		var disLikes = "<p>" + Dislikes + "</p>";
 
 		var likeBtnTd = document.createElement('td');
 		likeBtnTd.appendChild(Like);
 		var likeNumberTd = document.createElement('td');
+		likeNumberTd.setAttribute("id", "likeNumberTd_" + url);
 		likeNumberTd.innerHTML = likes;
 		var disLikeBtnTd = document.createElement('td');
 		disLikeBtnTd.appendChild(disLike);
 		var disLikeNumberTd = document.createElement('td');
+		disLikeNumberTd.setAttribute("id", "disLikeNumberTd_" + url);
 		disLikeNumberTd.innerHTML = disLikes;
 		var likeDislikeTr = document.createElement('tr');
 		
