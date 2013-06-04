@@ -14,7 +14,8 @@ self.port.on("disp", function(links, userId) {
 			$(document.getElementById(userId + "_" + delUrl)).remove();
 		}
 	});
-	
+
+/*
 	self.port.on("dislikeReturn", function (ReturUrl, likeN, dislikeN) {
 		var likes_tmp = "<p>" + likeN + "</p>";
 		var dislikes_tmp = "<p>" + dislikeN + "</p>";
@@ -28,7 +29,7 @@ self.port.on("disp", function(links, userId) {
 		$(document.getElementById("dislikeNumberTd_" + ReturUrl)).attr('innerHTML', dislikes_tmp);
 		$(document.getElementById("likeNumberTd_" + ReturUrl)).attr('innerHTML', likes_tmp);
 	});	
-	
+*/
 	
 	var first_div = document.createElement("div");
 	first_div.setAttribute("id", "first_div");
