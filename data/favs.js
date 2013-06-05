@@ -1,35 +1,8 @@
-self.port.on("disp", function(links, userId) {
-	
-	self.port.on("delReturn", function delReturn(delUrl) {
-		var test = 0;
-		for (var save in links[delUrl]){
-			if(links[delUrl][save].userid != userId){
-				test = 1;
-			}
-		}	
-		if(test ==0){
-			$(document.getElementById(delUrl)).remove();
-		}
-		else{
-			$(document.getElementById(userId + "_" + delUrl)).remove();
-		}
-	});
+self.port.on("disp", function(links, userId, flag) {
 
-/*
-	self.port.on("dislikeReturn", function (ReturUrl, likeN, dislikeN) {
-		var likes_tmp = "<p>" + likeN + "</p>";
-		var dislikes_tmp = "<p>" + dislikeN + "</p>";
-		$(document.getElementById("dislikeNumberTd_" + ReturUrl)).attr('innerHTML', dislikes_tmp);
-		$(document.getElementById("likeNumberTd_" + ReturUrl)).attr('innerHTML', likes_tmp);
-	});
-	
-	self.port.on("likeReturn", function (ReturUrl, likeN, dislikeN) {
-		var likes_tmp = "<p>" + likeN + "</p>";
-		var dislikes_tmp = "<p>" + dislikeN + "</p>";
-		$(document.getElementById("dislikeNumberTd_" + ReturUrl)).attr('innerHTML', dislikes_tmp);
-		$(document.getElementById("likeNumberTd_" + ReturUrl)).attr('innerHTML', likes_tmp);
-	});	
-*/
+	if(flag == 1){
+		document.body.innerHTML = "";
+	}
 	
 	var first_div = document.createElement("div");
 	first_div.setAttribute("id", "first_div");
