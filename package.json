@@ -1,4 +1,91 @@
 {
+    "preferences": [
+        {
+            "title": "Tentacles",
+            "type": "bool",
+            "description": "Does it have tentacles?",
+            "value": true,
+            "name": "hasTentacles"
+        },
+        {
+            "on": "1",
+            "off": "2",
+            "name": "myBoolint",
+            "title": "My Boolint",
+            "value": 1,
+            "type": "boolint"
+        },
+        {
+            "title": "Eye count",
+            "type": "integer",
+            "description": "How many eyes?",
+            "value": 8,
+            "name": "eyeCount"
+        },
+        {
+            "type": "string",
+            "name": "monsterName",
+            "value": "Kraken",
+            "title": "Monster name"
+        },
+        {
+            "type": "color",
+            "name": "highlightColor",
+            "value": "#6a5acd",
+            "title": "Highlight color"
+        },
+        {
+            "type": "file",
+            "name": "myFile",
+            "title": "Select a file"
+        },
+        {
+            "options": [
+                {
+                    "value": "0",
+                    "label": "Fire"
+                },
+                {
+                    "value": "1",
+                    "label": "Cold"
+                },
+                {
+                    "value": "2",
+                    "label": "Disintegration"
+                }
+            ],
+            "type": "menulist",
+            "name": "typeOfBreath",
+            "value": 0,
+            "title": "Type of breath"
+        },
+        {
+            "options": [
+                {
+                    "value": "L",
+                    "label": "Lawful"
+                },
+                {
+                    "value": "N",
+                    "label": "Neutral"
+                },
+                {
+                    "value": "C",
+                    "label": "Chaotic"
+                }
+            ],
+            "type": "radio",
+            "name": "alignment",
+            "value": "N",
+            "title": "Alignment"
+        },
+        {
+            "title": "Say Hello",
+            "type": "control",
+            "name": "sayHello",
+            "label": "Click me!"
+        }
+    ],	
   "name": "teste3",
   "fullName": "teste3",
   "id": "jid2-6LBzJPDz0BNBug",
