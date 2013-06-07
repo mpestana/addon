@@ -1,47 +1,52 @@
 self.port.on("init", function init(flag) {
 	if (window.frameElement) return;
+	
+	$('body').prepend(
+	'<sc'+'ript>' +
+	"window.fbAsyncInit = function() {" +
+		"FB.init({"+
+			"appId      : '253368234806475',"+ // App ID
+			"channelUrl : '//whispering-shore-6287.herokuapp.com/channel.html'," +
+			"status     : true," + // check login status
+			"cookie     : true," + // enable cookies to allow the server to access the session
+			"xfbml      : true"+  // parse XFBML
+			//"oauth		: true" +
+		"});"+
 
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId      : '253368234806475', // App ID
-			channelUrl : require("self").data.url('channel.html'), // Channel File
-			status     : true, // check login status
-			cookie     : true, // enable cookies to allow the server to access the session
-			xfbml      : true  // parse XFBML
-		});
+		"FB.Event.subscribe('auth.authResponseChange', function(response) {"+
+			"if (response.status === 'connected') {" +
+				"testAPI();" +
+			"} else if (response.status === 'not_authorized') {" +
+				"FB.login();" +
+			"} else {" +
+				"FB.login();" +
+			"}" +
+		"});" +
+	"};" +
 
-		FB.Event.subscribe('auth.authResponseChange', function(response) {
-			if (response.status === 'connected') {
-				testAPI();
-			} else if (response.status === 'not_authorized') {
-				FB.login();
-			} else {
-				FB.login();
-			}
-		});
-	};
+	"(function(d){ " +
+		"var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];"+
+		"if (d.getElementById(id)) {return;}" +
+			"js = d.createElement('script'); js.id = id; js.async = true;" +
+			"js.src = '//connect.facebook.net/en_US/all.js';" +
+			"ref.parentNode.insertBefore(js, ref);" +
+	"}(document));" +
 
-	(function(d){
-		var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-		if (d.getElementById(id)) {return;}
-			js = d.createElement('script'); js.id = id; js.async = true;
-			js.src = "//connect.facebook.net/en_US/all.js";
-			ref.parentNode.insertBefore(js, ref);
-	}(document));
-
-	function testAPI() {
-		console.log('Welcome!  Fetching your information.... ');
-		FB.api('/me', function(response) {
-			window.alert('Good to see you, ' + response.name + '.');
-		});
-	}
+	"function testAPI() {" +
+		"console.log('Welcome!  Fetching your information.... ');" +
+		"FB.api('/me', function(response) {" +
+			"window.alert('Good to see you, ' + response.name + '.');" +
+		"});" +
+	"}" +
+	'<\/sc'+'ript>'
+	);
 	
 	var first_div = document.createElement("div");
 	first_div.setAttribute("id", "first_div");
 	first_div.className = "first_div";
 	first_div.style.width = "100%";
-	first_div.style.height = "50px"; 
-	//first_div.style.background = "blue"; 
+	first_div.style.height = "150px"; 
+	first_div.style.background = "white"; 
 	first_div.style.position = "fixed";  
 	first_div.style.bottom = "0"; 
 	first_div.style.left = "0";  
@@ -104,8 +109,10 @@ self.port.on("init", function init(flag) {
 	MapsBtn.appendChild(text);
 	/*** End of Maps Button ***/
 	
-	var FaceBook = document.createElement('a');
-	FaceBook.href = "https://www.facebook.com/dialog/oauth?client_id=253368234806475&redirect_uri=https://whispering-shore-6287.herokuapp.com/";
+	var FaceBook = document.createElement('fb:login-button');
+	FaceBook.setAttribute("show-faces", "true");
+	 FaceBook.setAttribute("width", "200");
+	 FaceBook.setAttribute("max-rows", "1");
 	var fb_text=document.createTextNode("Login");
 	FaceBook.appendChild(fb_text);
 
