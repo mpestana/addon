@@ -1,206 +1,151 @@
 self.port.on("init", function init(flag) {
 	if (window.frameElement) return;
 
-	$("html").attr("xmlns:fb","https://www.facebook.com/2008/fbml");
-
 	var fb_root = document.createElement("div");
 	fb_root.setAttribute("id", "fb-root");
-	document.body.appendChild(fb_root); 
+	document.body.appendChild(fb_root); 	
 	
-	var button;
-	var userInfo;
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+	
+	$("html").attr("xmlns:fb","https://www.facebook.com/2008/fbml");
+	
+	 var script = document.createElement('script');
+	 script.type = "text/javascript";
+	
+	script.innerHTML = 'var button;' + 
+	'var userInfo;' +
+	"window.fbAsyncInit = function() {" + "\n" +
+	"	FB.init({ appId: '253368234806475', " + "\n" +
+	"			status: true, " + "\n" +
+	"			cookie: true," + "\n" +
+	"			xfbml: true," + "\n" +
+	"			oauth: true});" + "\n" +
+	"	showLoader(true);" + "\n" +
+	"	function updateButton(response) {" + "\n" +
+	"		button       =   document.getElementById('fb-auth');" + "\n" +
+	"		userInfo     =   document.getElementById('user-info');" + "\n" +
+	"		if (response.authResponse) {" + "\n" +
+	"			FB.api('/me', function(info) {" + "\n" +
+	"				login(response, info);" + "\n" +
+	"			});" + "\n" +
+	"			button.onclick = function() {" + "\n" +
+	"				FB.logout(function(response) {" + "\n" +
+	"					logout(response);" + "\n" +
+	"				});" + "\n" +
+	"			};" + "\n" +
+	"		} else {" + "\n" +
+	"			button.innerHTML = 'Login';" + "\n" +
+	"			button.onclick = function() {" + "\n" +
+	"				showLoader(true);" + "\n" +
+	"				FB.login(function(response) {" + "\n" +
+	"					if (response.authResponse) {" + "\n" +
+	"						FB.api('/me', function(info) {" + "\n" +
+	"							login(response, info);" + "\n" +
+	"						});	   " + "\n" +
+	"					} else {" + "\n" +
+	"						showLoader(false);" + "\n" +
+	"					}" + "\n" +
+	"				}, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	" + "\n" +
+	"			}" + "\n" +
+	"		}" + "\n" +
+	"	}" + "\n" +
+	"	FB.getLoginStatus(updateButton);" + "\n" +
+	"	FB.Event.subscribe('auth.statusChange', updateButton);	" + "\n" +
+	"};" + "\n" +
+    "function login(response, info){" + "\n" +
+    "    if (response.authResponse) {" + "\n" +
+    "        var accessToken                                 =   response.authResponse.accessToken;" + "\n" +
+    "        button.innerHTML                               = 'Logout'; " + "\n" +
+    "        showLoader(false);" + "\n" +
+    "        document.getElementById('other').style.display = 'block';" + "\n" +
+    "    }" + "\n" +
+    "}" + "\n" +
+    "function logout(response){" + "\n" +
+    "    userInfo.innerHTML                             =   '';" + "\n" +
+    "    document.getElementById('debug').innerHTML     =   '';" + "\n" +
+    "    document.getElementById('other').style.display =   'none';" + "\n" +
+    "    showLoader(false);" + "\n" +
+    "}" + "\n" +
+    "function streamPublish(name, description, hrefTitle, hrefLink, userPrompt){" + "\n" +
+    "    showLoader(true);" + "\n" +
+    "    FB.ui(" + "\n" +
+    "    {" + "\n" +
+    "        method: 'stream.publish'," + "\n" +
+    "        message: ''," + "\n" +
+    "        attachment: {" + "\n" +
+    "            name: name," + "\n" +
+    "            caption: ''," + "\n" +
+    "            description: (description)," + "\n" +
+    "            href: hrefLink" + "\n" +
+    "        }," + "\n" +
+    "        action_links: [" + "\n" +
+    "            { text: hrefTitle, href: hrefLink }" + "\n" +
+    "        ]," + "\n" +
+    "        user_prompt_message: userPrompt" + "\n" +
+    "    }," + "\n" +
+    "    function(response) {" + "\n" +
+    "        showLoader(false);" + "\n" +
+    "    });" + "\n" +
+    "}" + "\n" +
+    "function showStream(){" + "\n" +
+    "    FB.api('/me', function(response) {" + "\n" +
+    "        //console.log(response.id);" + "\n" +
+    "        streamPublish(response.name, 'I like the articles of Thinkdiff.net', 'hrefTitle', 'http://thinkdiff.net', 'Share thinkdiff.net');" + "\n" +
+    "    });" + "\n" +
+    "}" + "\n" +
+    "function share(){" + "\n" +
+    "    showLoader(true);" + "\n" +
+    "    var share = {" + "\n" +
+    "        method: 'stream.share'," + "\n" +
+    "        u: 'http://thinkdiff.net/'" + "\n" +
+    "    };" + "\n" +
+    "    FB.ui(share, function(response) { " + "\n" +
+    "        showLoader(false);" + "\n" +
+    "        console.log(response); " + "\n" +
+    "    });" + "\n" +
+    "}" + "\n" +
 
-	window.fbAsyncInit = function() {
-		FB.init({ appId: '428771190554994', //change the appId to your appId
-				status: true, 
-				cookie: true,
-				xfbml: true,
-				oauth: true});
-		showLoader(true);
-
-		function updateButton(response) {
-			button       =   document.getElementById('fb-auth');
-			userInfo     =   document.getElementById('user-info');
-
-			if (response.authResponse) {
-				FB.api('/me', function(info) {
-					login(response, info);
-				});
-				button.onclick = function() {
-					FB.logout(function(response) {
-						logout(response);
-					});
-				};
-			} else {
-				button.innerHTML = 'Login';
-				button.onclick = function() {
-					showLoader(true);
-					FB.login(function(response) {
-						if (response.authResponse) {
-							FB.api('/me', function(info) {
-								login(response, info);
-							});	   
-						} else {
-							showLoader(false);
-						}
-					}, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
-				}
-			}
-		}
-
-		FB.getLoginStatus(updateButton);
-		FB.Event.subscribe('auth.statusChange', updateButton);	
-	};
-    (function() {
-        var e = document.createElement('script'); e.async = true;
-        e.src = document.location.protocol 
-            + '//connect.facebook.net/en_US/all.js';
-        document.getElementById('fb-root').appendChild(e);
-    }());
+    "function setStatus(){" + "\n" +
+    "    showLoader(true);" + "\n" +
+    "    status1 = document.getElementById('status').value;" + "\n" +
+    "    FB.api(" + "\n" +
+    "      {" + "\n" +
+    "        method: 'status.set'," + "\n" +
+    "        status: status1" + "\n" +
+    "      }," + "\n" +
+    "      function(response) {" + "\n" +
+    "        if (response == 0){" + "\n" +
+    "            alert('Your facebook status not updated. Give Status Update Permission.');" + "\n" +
+    "        }" + "\n" +
+    "        else{" + "\n" +
+    "            alert('Your facebook status updated');" + "\n" +
+    "        }" + "\n" +
+    "        showLoader(false);" + "\n" +
+    "      }" + "\n" +
+    "    );" + "\n" +
+    "}" + "\n" +
+    "function showLoader(status){" + "\n" +
+    "    if (status)" + "\n" +
+    "        document.getElementById('loader').style.display = 'block';" + "\n" +
+    "    else" + "\n" +
+    "        document.getElementById('loader').style.display = 'none';" + "\n" +
+    "}";
     
-    
-    function login(response, info){
-        if (response.authResponse) {
-            var accessToken                                 =   response.authResponse.accessToken;
-            
-            userInfo.innerHTML                             = '<img src="https://graph.facebook.com/' + info.id + '/picture">' + info.name
-                                                             + "<br /> Your Access Token: " + accessToken;
-            button.innerHTML                               = 'Logout';
-            showLoader(false);
-            document.getElementById('other').style.display = "block";
-        }
-    }
+	document.head.appendChild(script);
 
-    function logout(response){
-        userInfo.innerHTML                             =   "";
-        document.getElementById('debug').innerHTML     =   "";
-        document.getElementById('other').style.display =   "none";
-        showLoader(false);
-    }
 
-    //stream publish method
-    function streamPublish(name, description, hrefTitle, hrefLink, userPrompt){
-        showLoader(true);
-        FB.ui(
-        {
-            method: 'stream.publish',
-            message: '',
-            attachment: {
-                name: name,
-                caption: '',
-                description: (description),
-                href: hrefLink
-            },
-            action_links: [
-                { text: hrefTitle, href: hrefLink }
-            ],
-            user_prompt_message: userPrompt
-        },
-        function(response) {
-            showLoader(false);
-        });
-
-    }
-    function showStream(){
-        FB.api('/me', function(response) {
-            //console.log(response.id);
-            streamPublish(response.name, 'I like the articles of Thinkdiff.net', 'hrefTitle', 'http://thinkdiff.net', "Share thinkdiff.net");
-        });
-    }
-
-    function share(){
-        showLoader(true);
-        var share = {
-            method: 'stream.share',
-            u: 'http://thinkdiff.net/'
-        };
-
-        FB.ui(share, function(response) { 
-            showLoader(false);
-            console.log(response); 
-        });
-    }
-
-    function graphStreamPublish(){
-        showLoader(true);
-        
-        FB.api('/me/feed', 'post', 
-            { 
-                message     : "I love thinkdiff.net for facebook app development tutorials",
-                link        : 'http://ithinkdiff.net',
-                picture     : 'http://thinkdiff.net/iphone/lucky7_ios.jpg',
-                name        : 'iOS Apps & Games',
-                description : 'Checkout iOS apps and games from iThinkdiff.net. I found some of them are just awesome!'
-                
-        }, 
-        function(response) {
-            showLoader(false);
-            
-            if (!response || response.error) {
-                alert('Error occured');
-            } else {
-                alert('Post ID: ' + response.id);
-            }
-        });
-    }
-
-    function fqlQuery(){
-        showLoader(true);
-        
-        FB.api('/me', function(response) {
-            showLoader(false);
-            
-            //http://developers.facebook.com/docs/reference/fql/user/
-            var query       =  FB.Data.query('select name, profile_url, sex, pic_small from user where uid={0}', response.id);
-            query.wait(function(rows) {
-               document.getElementById('debug').innerHTML =  
-                 'FQL Information: '+  "<br />" + 
-                 'Your name: '      +  rows[0].name                                                            + "<br />" +
-                 'Your Sex: '       +  (rows[0].sex!= undefined ? rows[0].sex : "")                            + "<br />" +
-                 'Your Profile: '   +  "<a href='" + rows[0].profile_url + "'>" + rows[0].profile_url + "</a>" + "<br />" +
-                 '<img src="'       +  rows[0].pic_small + '" alt="" />' + "<br />";
-             });
-        });
-    }
-
-    function setStatus(){
-        showLoader(true);
-        
-        status1 = document.getElementById('status').value;
-        FB.api(
-          {
-            method: 'status.set',
-            status: status1
-          },
-          function(response) {
-            if (response == 0){
-                alert('Your facebook status not updated. Give Status Update Permission.');
-            }
-            else{
-                alert('Your facebook status updated');
-            }
-            showLoader(false);
-          }
-        );
-    }
-    
-    function showLoader(status){
-        if (status)
-            document.getElementById('loader').style.display = 'block';
-        else
-            document.getElementById('loader').style.display = 'none';
-    }
-
-		
+	
     var first_div = document.createElement("div");
 	first_div.setAttribute("id", "first_div");
 	first_div.className = "first_div";
 	first_div.style.width = "100%";
 	first_div.style.height = "50px"; 
 	//first_div.style.background = "blue"; 
-	first_div.style.position = "fixed";  
-	first_div.style.bottom = "0"; 
-	first_div.style.left = "0";  
+	//first_div.style.position = "fixed";  
+	//first_div.style.bottom = "0"; 
+	//first_div.style.left = "0";  
 
 	var second_div = document.createElement("div");
 	second_div.setAttribute("id", "second_div");
